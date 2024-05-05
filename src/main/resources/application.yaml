@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://azure-mysql17.mysql.database.azure.com:3306/test?useSSL=true
+    username: joo
+    password: 4OO@2xsr
+
+    # The SQL dialect makes Hibernate generate better SQL for the chosen database
+    jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+# JPA Settings
+  jpa:
+    hibernate:
+      ddl_auto: update  # or "validate" if you want to validate schema without modifying it
