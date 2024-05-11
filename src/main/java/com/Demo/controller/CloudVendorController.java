@@ -20,7 +20,7 @@ import com.Demo.service.CloudVendorService;
 @RequestMapping("/cloudvendor")
 public class CloudVendorController
 {
-    CloudVendorService cloudVendorService;
+    CloudVendorService cloudVendorService; 
 
     public CloudVendorController(CloudVendorService cloudVendorService) {
         this.cloudVendorService = cloudVendorService;
