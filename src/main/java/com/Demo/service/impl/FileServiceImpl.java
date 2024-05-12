@@ -25,4 +25,16 @@ public class FileServiceImpl implements FileService {
       return fileRepository.findAll();
     }
 
+    @Override
+    public String createFile(File file) {
+     fileRepository.save(file);
+     return"Success";
+    }
+
+    @Override
+    public String deleteFile(int id) {
+      fileRepository.deleteById(id);
+      return"success";
+    }
+
 }
