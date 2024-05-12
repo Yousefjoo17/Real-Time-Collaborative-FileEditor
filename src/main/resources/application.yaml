@@ -14,4 +14,4 @@ spring:
 # JPA Settings
   jpa:
     hibernate:
-      ddl_auto: update  # or "validate" if you want to validate schema without modifying it
+      ddl_auto: create  # or "validate" if you want to validate schema without modifying it
