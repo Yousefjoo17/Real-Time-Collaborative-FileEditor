@@ -7,14 +7,13 @@ import com.Demo.model.CloudVendor;
 import com.Demo.repository.CloudVendorRepository;
 import com.Demo.service.CloudVendorService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class CloudVendorServiceImpl implements CloudVendorService {
 
     CloudVendorRepository cloudVendorRepository;
-
-    public CloudVendorServiceImpl(CloudVendorRepository cloudVendorRepository) {
-        this.cloudVendorRepository = cloudVendorRepository;
-    }
 
     @Override
     public String createCloudVendor(CloudVendor cloudVendor) {
