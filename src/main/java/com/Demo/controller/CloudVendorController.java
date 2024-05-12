@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Demo.exception.CloudVendorNotFoundException;
 import com.Demo.model.CloudVendor;
 import com.Demo.service.CloudVendorService;
 
@@ -37,9 +36,6 @@ public class CloudVendorController
     @GetMapping("/")
     public List<CloudVendor> getAllCloudVendorDetails()
     {
-        if(cloudVendorService.getAllCloudVendors().isEmpty())
-        throw new CloudVendorNotFoundException("There is new infor");
-
         return cloudVendorService.getAllCloudVendors();
     }
 
@@ -61,7 +57,7 @@ public class CloudVendorController
     public String deleteCloudVendorDetails(@PathVariable("vendorId") String vendorId)
     {
         if (cloudVendorService.getByVendorName(vendorId).isEmpty())
-        throw new CloudVendorNotFoundException("the vendor is already not found!");
+        return"the vendor is already not found!";
         cloudVendorService.deleteCloudVendor(vendorId);
         return "Cloud Vendor Deleted Successfully";
     }
