@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class CloudVendorException {
+public class CustomException {
     private final String message;
     private final Throwable throwable;
     private final HttpStatus httpStatus;

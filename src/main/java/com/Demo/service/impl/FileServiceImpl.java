@@ -37,4 +37,18 @@ public class FileServiceImpl implements FileService {
       return"success";
     }
 
+
+    @Override
+    public String writeToFile(int fileID, String diff, int pos) {
+            fileRepository.WriteToFile(fileID, diff, pos);
+        return "success";
+    }
+
+    @Override
+    public String deleteFromFile(int fileID,int length, int pos) {
+      fileRepository.deletefromFile(fileID, pos, pos);
+      return "success";
+    }
+
+    
 }

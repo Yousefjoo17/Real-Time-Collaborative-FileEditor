@@ -9,4 +9,6 @@ public interface FileService {
     String deleteFile(int fileID);
     File getFile(int id);
     List<File> getAllFiles();
+    String writeToFile(int fileID, String diff,int pos); //0 for addition , 1 for delete
+    String deleteFromFile(int fileID, int length, int pos);
 }
