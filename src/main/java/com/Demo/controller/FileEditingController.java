@@ -82,7 +82,7 @@ public User getCloudVendorDetails(@PathVariable("userID") int userID) {
         return fileService.getAllFiles();
     }
 
-    @PutMapping("/files/id={fileid}/diff={diff}/pos={pos}")
+    @PutMapping("/files/id={fileid}&diff={diff}&pos={pos}")
     public String WritetoFile(
     @PathVariable ("fileid") int fileID, @PathVariable ("diff") String diff, @PathVariable ("pos") int pos)
     {
@@ -90,7 +90,7 @@ public User getCloudVendorDetails(@PathVariable("userID") int userID) {
         return "You have written Successfully";
     }
 
-    @PutMapping("/files/id={fileid}/length={length}/pos={pos}")
+    @PutMapping("/files/id={fileid}&length={length}&pos={pos}")
     public String DeleteFromFile(
     @PathVariable ("fileid") int fileID,@PathVariable ("length") int length ,@PathVariable ("pos") int pos)
     {
