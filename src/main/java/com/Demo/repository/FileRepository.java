@@ -19,4 +19,9 @@ public interface FileRepository extends JpaRepository<File,Integer>{
     @Transactional
     @Query(value = "UPDATE File SET content = CONCAT(SUBSTRING(content, 1, :pos), SUBSTRING(content, :pos + :length + 1)) WHERE FileID = :fileID", nativeQuery = true)
     void deletefromFile(int fileID, int length, int pos);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE File f SET f.content = :newContent WHERE f.FileID = :fileID")
+    void updateFileContent(@Param("fileID") int fileID, @Param("newContent") String newContent);
 }

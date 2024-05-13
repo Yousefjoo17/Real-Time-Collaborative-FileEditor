@@ -40,13 +40,21 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String writeToFile(int fileID, String diff, int pos) {
+            /* 
+            File file=fileRepository.findById(fileID).get();
+            String msg=file.getContent();
+            String left=msg.substring(0, pos-1);
+            String right=msg.substring(pos, msg.length());
+            msg=left+diff+right;
+            fileRepository.updateFileContent(fileID, msg);
+            */
             fileRepository.WriteToFile(fileID, diff, pos);
         return "success";
     }
 
     @Override
     public String deleteFromFile(int fileID,int length, int pos) {
-      fileRepository.deletefromFile(fileID, pos, pos);
+      fileRepository.deletefromFile(fileID, length, pos);
       return "success";
     }
 
