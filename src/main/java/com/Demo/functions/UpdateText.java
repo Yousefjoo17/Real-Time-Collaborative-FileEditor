@@ -18,7 +18,7 @@ public class UpdateText {
         if (endPos > originalText.length()) {
             endPos = originalText.length();
         }
-                String deletedText = originalText.substring(0, pos) + originalText.substring(endPos);
+         String deletedText = originalText.substring(0, pos) + originalText.substring(endPos);
         return deletedText;
     }
 }

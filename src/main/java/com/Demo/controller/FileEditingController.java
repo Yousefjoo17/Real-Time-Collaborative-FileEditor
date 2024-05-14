@@ -19,6 +19,8 @@ import com.Demo.model.UserFilePermission;
 import com.Demo.service.FileService;
 import com.Demo.service.UserFilePermissionService;
 import com.Demo.service.UserService;
+import com.Demo.webSockets.Client;
+import com.Demo.webSockets.Server;
 
 import lombok.AllArgsConstructor;
 
@@ -31,7 +33,30 @@ public class FileEditingController
     FileService fileService;
     UserFilePermissionService userFilePermissionService;
 
-/******************************************************users**************************************************/
+
+ /**************************************************Web sockets*****************************************/   
+    @PostMapping("/start-server")
+    public String startServer() {
+        Thread thread = new Thread(() -> {
+            Server server = new Server();
+            server.startServer();
+        });
+        thread.start();
+        return "Server process initiated successfully";
+    }
+
+    @PostMapping("/start-client")
+    public String startClient() {
+        Thread thread = new Thread(() -> {
+            String IP = "127.0.0.1"; // Assuming server is running on localhost
+        int port = 8080; // Assuming server is running on port 8080
+        Client client = new Client(IP, port);
+        client.startClient();
+        });
+        thread.start();
+        return "client process initiated successfully";
+    }
+/******************************************************users*********************************************/
 @GetMapping("users/id={userID}")
 public User getCloudVendorDetails(@PathVariable("userID") int userID) {
     User user = userService.getUser(userID);
