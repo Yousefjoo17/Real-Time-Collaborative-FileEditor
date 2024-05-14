@@ -3,6 +3,7 @@ package com.Demo.webSockets;
 import java.io.*;
 import java.net.*;
 
+
 public class Server {
     private ServerSocket serverSocket;
     private int port;
@@ -14,7 +15,7 @@ public class Server {
 
     public void startServer() {
         try {
-            serverSocket = new ServerSocket(8080); // Use any available port
+            serverSocket = new ServerSocket(8081); // Use any available port
             //port = serverSocket.getLocalPort();
             InetAddress localHost = InetAddress.getLocalHost();
             IP = localHost.getHostAddress();
@@ -42,17 +43,19 @@ public class Server {
 
         @Override
         public void run() {
-            try {
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-                objectOutputStream.writeObject("Hello"); // added string
-                objectOutputStream.writeInt(7); // pos
-                objectOutputStream.flush();
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    try {
+        System.out.println("server start sending 0000000");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        objectOutputStream.writeObject("Hello"); // added string
+        objectOutputStream.writeInt(7); // pos
+        objectOutputStream.flush();
+        System.out.println("Data sent to client");
+        
 
-        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
     }
 
     public static void runServer() {

@@ -17,15 +17,17 @@ public class Client {
         try {
             socket = new Socket(IP, port);
             System.out.println("Connected to server whose IP " + IP + " on port " + port);
-
-            // Receive object from server
+    
+           
+           
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             String message = (String) objectInputStream.readObject(); // Read string object
             int number = objectInputStream.readInt(); // Read integer object
+    
+            System.out.println("Received string: " + message);
+            System.out.println("Received number: " + number);
 
-            System.out.println("new added string: " + message);
-            System.out.println("pos : " + number);
-
+            
             // Close the socket
             socket.close();
         } catch (IOException | ClassNotFoundException e) {
@@ -35,7 +37,7 @@ public class Client {
 
     public static void runClient() {
         String IP = "127.0.0.1"; // Assuming server is running on localhost
-        int port = 8080; // Assuming server is running on port 8080
+        int port = 8081; // Assuming server is running on port 8080
         Client client = new Client(IP, port);
         client.startClient();
     }

@@ -48,8 +48,8 @@ public class FileEditingController
     @PostMapping("/start-client")
     public String startClient() {
         Thread thread = new Thread(() -> {
-            String IP = "127.0.0.1"; // Assuming server is running on localhost
-        int port = 8080; // Assuming server is running on port 8080
+        String IP = "127.0.0.1"; // Assuming server is running on localhost
+        int port = 8081; // Assuming server is running on port 8080
         Client client = new Client(IP, port);
         client.startClient();
         });
