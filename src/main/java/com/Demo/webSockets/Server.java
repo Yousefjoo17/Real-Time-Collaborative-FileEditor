@@ -8,15 +8,16 @@ public class Server {
     private ServerSocket serverSocket;
     private int port;
     private String IP;
-
-    public Server() {
-        // Constructor
+   static private String added;
+   static private int pos;
+    public Server(int port) {
+       this.port=port;
     }
 
     public void startServer() {
         try {
-            serverSocket = new ServerSocket(8081); // Use any available port
-            //port = serverSocket.getLocalPort();
+            serverSocket = new ServerSocket(port); //if not avialable incraese it by 77
+            port = serverSocket.getLocalPort();
             InetAddress localHost = InetAddress.getLocalHost();
             IP = localHost.getHostAddress();
             System.out.println("Server started port " + port + " IP " + IP);
@@ -25,7 +26,6 @@ public class Server {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connected: " + clientSocket);
 
-                // Handle client communication in a separate thread
                 Thread thread = new Thread(new ClientHandler(clientSocket));
                 thread.start();
             }
@@ -44,22 +44,23 @@ public class Server {
         @Override
         public void run() {
     try {
-        System.out.println("server start sending 0000000");
+        System.out.println("start sending data to the cleint");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
         objectOutputStream.writeObject("Hello"); // added string
         objectOutputStream.writeInt(7); // pos
         objectOutputStream.flush();
-        System.out.println("Data sent to client");
+        System.out.println("Data has been sent to client");
         
-
-    } catch (IOException e) {
+        // receive added and pos from client
+        ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+        added = (String) objectInputStream.readObject(); // Read string added
+        pos = objectInputStream.readInt(); // Read position
+        
+        System.out.println("Received string from client: " + added);
+        System.out.println("Received number from client: " + pos);
+    } catch (Exception e) {
         e.printStackTrace();
-    }
-}
-    }
-
-    public static void runServer() {
-        Server server = new Server();
-        server.startServer();
-    }
-}
+     }
+        }
+             }
+                }

@@ -35,27 +35,27 @@ public class FileEditingController
 
 
  /**************************************************Web sockets*****************************************/   
-    @PostMapping("/start-server")
-    public String startServer() {
-        Thread thread = new Thread(() -> {
-            Server server = new Server();
-            server.startServer();
-        });
-        thread.start();
-        return "Server process initiated successfully";
-    }
+ @GetMapping("/start-server/port={port}")
+ public String runServer( @PathVariable ("port") int port) {
+     Thread thread = new Thread(() -> {
+         Server server = new Server(port);
+         server.startServer();
+     });
+     thread.start();
+     return "Server process initiated successfully";
+ }
 
-    @PostMapping("/start-client")
-    public String startClient() {
-        Thread thread = new Thread(() -> {
-        String IP = "127.0.0.1"; // Assuming server is running on localhost
-        int port = 8081; // Assuming server is running on port 8080
-        Client client = new Client(IP, port);
-        client.startClient();
-        });
-        thread.start();
-        return "client process initiated successfully";
-    }
+ @GetMapping("/start-client/port={port}&userID={userID}&added={added}&pos={pos}")
+ public String runClient( @PathVariable ("port") int port,@PathVariable ("userID") int userID
+ ,@PathVariable ("added") String added,@PathVariable ("pos") int pos) {
+     Thread thread = new Thread(() -> {
+     String IP = "127.0.0.1"; 
+     Client client = new Client(IP, port,userID,added,pos);
+     client.startClient();
+     });
+     thread.start();
+     return "client process initiated successfully";
+ }
 /******************************************************users*********************************************/
 @GetMapping("users/id={userID}")
 public User getCloudVendorDetails(@PathVariable("userID") int userID) {
