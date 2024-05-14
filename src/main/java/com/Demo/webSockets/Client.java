@@ -23,22 +23,27 @@ public class Client {
         try {
             socket = new Socket(IP, port);
             System.out.println("Connected to server whose IP " + IP + " on port " + port);
-    
-            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-            String message = (String) objectInputStream.readObject(); // Read string added
-            int number = objectInputStream.readInt(); // Read position
-    
-            System.out.println("Received string: " + message);
-            System.out.println("Received number: " + number);
-
-            // send added and pos to the server
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            
+            /******************send added and pos to the server******************/
+            ObjectOutputStream  objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            objectOutputStream.writeInt(userID); // Send userID
             objectOutputStream.writeObject(added); // Send string added
             objectOutputStream.writeInt(pos); // Send position
             objectOutputStream.flush();
             System.out.println("Data has been sent to server");
-            socket.close();
-        } catch (IOException | ClassNotFoundException e) {
+                /************************************************************************/
+           
+            /************** recieve data from server*****************/
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            String message = (String) objectInputStream.readObject(); // Read string added
+            int number = objectInputStream.readInt(); // Read position
+            System.out.println("Received string: " + message);
+            System.out.println("Received number: " + number);
+
+           
+            
+           // socket.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
