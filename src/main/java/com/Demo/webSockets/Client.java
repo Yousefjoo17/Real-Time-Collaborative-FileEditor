@@ -25,6 +25,7 @@ public class Client {
             System.out.println("Connected to server whose IP " + IP + " on port " + port);
             
             /******************send added and pos to the server******************/
+            /* 
             ObjectOutputStream  objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeInt(userID); // Send userID
             objectOutputStream.writeObject(added); // Send string added
@@ -39,8 +40,8 @@ public class Client {
             int number = objectInputStream.readInt(); // Read position
             System.out.println("Client Received string: " + message);
             System.out.println("client Received number: " + number);
-
-           
+            
+            //notify here Filfel 
             
            // socket.close();
         } catch (Exception e) {

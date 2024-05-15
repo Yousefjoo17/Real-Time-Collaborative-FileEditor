@@ -5,12 +5,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
 import com.Demo.model.ClientModel;
-import com.Demo.model.File;
 
 
 public class Server {
@@ -21,29 +16,12 @@ public class Server {
     static private String added;
     static private int pos;
     static public List<ClientModel> myClientSockets;
-    private RestTemplate restTemplate;
     public Server(int port) {
        this.port=port;
-       this.myClientSockets = new ArrayList<>();
-        this.restTemplate = new RestTemplate();
-       
-        updateContent(port, "IP");
-       
+       this.myClientSockets = new ArrayList<>();        
     }
 
-    public void getFile(int id){
-        final String uri = "http://localhost:8080/Real-Time-Collaborative-Editing/files/id=" + id; // Change URL accordingly
-        File file = restTemplate.getForObject(uri, File.class);
-       System.out.println("File content: " + file.getContent());
-    }
 
-    public void updateContent(int fileID, String newContent) {
-        final String uri = "http://localhost:8080/Real-Time-Collaborative-Editing/files/id=" + fileID + "&newContent=" + newContent;
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-        restTemplate.exchange(uri, HttpMethod.PUT, requestEntity, String.class);
-
-    }
 
     public void startServer() {
         try {
@@ -70,12 +48,12 @@ public class Server {
         public ClientHandler(Socket clientSocket) {
             this.clientSocket = clientSocket;
         }
-
         @Override
         public void run() {
     try {
 
          /******************** receive usename, added, and pos from client***********************/
+         /* 
          ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
          userId = objectInputStream.readInt();
          added = (String) objectInputStream.readObject(); // Read string added
@@ -84,7 +62,6 @@ public class Server {
          System.out.println("server Received diff from client: " + added);
          System.out.println("server Received pos from client: " + pos);
         /**********************************************************************************/
-
 
         ClientModel clientModel=new ClientModel(userId,clientSocket);
          boolean found=false;
