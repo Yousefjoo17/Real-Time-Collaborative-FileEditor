@@ -10,7 +10,7 @@ public class Client {
     private int userID;
     private String added;
     private int pos;
-
+    
     public Client(String IP, int port, int userID, String added, int pos) {
         this.IP = IP;
         this.port = port;
@@ -31,14 +31,14 @@ public class Client {
             objectOutputStream.writeInt(pos); // Send position
             objectOutputStream.flush();
             System.out.println("Data has been sent to server");
-                /************************************************************************/
+            /************************************************************************/
            
             /************** recieve data from server*****************/
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             String message = (String) objectInputStream.readObject(); // Read string added
             int number = objectInputStream.readInt(); // Read position
-            System.out.println("Received string: " + message);
-            System.out.println("Received number: " + number);
+            System.out.println("Client Received string: " + message);
+            System.out.println("client Received number: " + number);
 
            
             

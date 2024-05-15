@@ -5,7 +5,12 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpHeaders;
 import com.Demo.model.ClientModel;
+import com.Demo.model.File;
 
 
 public class Server {
@@ -16,9 +21,28 @@ public class Server {
     static private String added;
     static private int pos;
     static public List<ClientModel> myClientSockets;
+    private RestTemplate restTemplate;
     public Server(int port) {
        this.port=port;
        this.myClientSockets = new ArrayList<>();
+        this.restTemplate = new RestTemplate();
+       
+        updateContent(port, "IP");
+       
+    }
+
+    public void getFile(int id){
+        final String uri = "http://localhost:8080/Real-Time-Collaborative-Editing/files/id=" + id; // Change URL accordingly
+        File file = restTemplate.getForObject(uri, File.class);
+       System.out.println("File content: " + file.getContent());
+    }
+
+    public void updateContent(int fileID, String newContent) {
+        final String uri = "http://localhost:8080/Real-Time-Collaborative-Editing/files/id=" + fileID + "&newContent=" + newContent;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        restTemplate.exchange(uri, HttpMethod.PUT, requestEntity, String.class);
+
     }
 
     public void startServer() {
@@ -56,9 +80,9 @@ public class Server {
          userId = objectInputStream.readInt();
          added = (String) objectInputStream.readObject(); // Read string added
          pos = objectInputStream.readInt(); // Read position
-         System.out.println("Received number from client: " + userId);
-         System.out.println("Received string from client: " + added);
-         System.out.println("Received number from client: " + pos);
+         System.out.println("server Received ID from client: " + userId);
+         System.out.println("server Received diff from client: " + added);
+         System.out.println("server Received pos from client: " + pos);
         /**********************************************************************************/
 
 
@@ -77,9 +101,9 @@ public class Server {
         System.out.println("number of connected users is " + myClientSockets.size());
 
         /*******************************************Broadcasting**********************************/
-        for(int i=0;i<myClientSockets.size();i++){ 
-        System.out.println("start sending data to the cleint");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        for(ClientModel client : myClientSockets){ 
+        System.out.println("start sending data to the cleint "+ client);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.clientSocket.getOutputStream());
         objectOutputStream.writeObject("Hello"); // added string
         objectOutputStream.writeInt(7); // pos
         objectOutputStream.flush();

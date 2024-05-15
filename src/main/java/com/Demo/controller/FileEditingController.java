@@ -32,8 +32,7 @@ public class FileEditingController
     UserService userService;
     FileService fileService;
     UserFilePermissionService userFilePermissionService;
-
-
+    
  /**************************************************Web sockets*****************************************/   
  @GetMapping("/start-server/port={port}")
  public String runServer( @PathVariable ("port") int port) {
@@ -121,6 +120,14 @@ public User getCloudVendorDetails(@PathVariable("userID") int userID) {
     {
         fileService.deleteFromFile(fileID,length, pos);
         return "You have deleted Successfully";
+    }
+    
+    @PutMapping("/files/id={fileid}&newContent={newcontent}")
+    public String updateContent(
+    @PathVariable ("fileid") int fileID,@PathVariable ("newcontent") String newcontent)
+    {
+        fileService.updateFileContent(fileID, newcontent);
+        return "You have updated Successfully";
     }
     
 

@@ -11,4 +11,5 @@ public interface FileService {
     List<File> getAllFiles();
     String writeToFile(int fileID, String diff,int pos); //0 for addition , 1 for delete
     String deleteFromFile(int fileID, int length, int pos);
+    String updateFileContent(int fileID, String newContent);
 }
