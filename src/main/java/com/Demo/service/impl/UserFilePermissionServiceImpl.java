@@ -18,5 +18,10 @@ public class UserFilePermissionServiceImpl implements UserFilePermissionService{
     public List<UserFilePermission> getAllPermissions() {
       return userFilePermissionRepository.findAll();
     }
+    @Override
+    public String createPermission(UserFilePermission userFilePermission) {
+      userFilePermissionRepository.save(userFilePermission);
+      return "Success";
+    }
 
 }

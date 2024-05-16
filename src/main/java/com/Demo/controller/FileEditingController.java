@@ -101,6 +101,13 @@ public User getCloudVendorDetails(@PathVariable("userID") int userID) {
         return fileService.getFile(fileID);
     }
 
+    @GetMapping("files/updateName/id={fileid}&newname={name}")
+    public String updateFileName(@PathVariable ("fileid") int fileID,@PathVariable ("name") String newName){
+         fileService.updateFileName(fileID, newName);
+         return"File name has been updated successfully";
+    }
+    
+
     @GetMapping("files")
     public List<File> getAllFiles(){
         return fileService.getAllFiles();
@@ -137,4 +144,9 @@ public User getCloudVendorDetails(@PathVariable("userID") int userID) {
         return userFilePermissionService.getAllPermissions();
     }
   
+    @PostMapping("UserFilepermissions")
+    public String createUserFilePermission(@RequestBody UserFilePermission userFilePermission){
+        userFilePermissionService.createPermission(userFilePermission);
+        return"permission Added successfully";
+    }
 }

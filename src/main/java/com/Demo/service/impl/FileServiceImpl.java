@@ -65,5 +65,11 @@ public class FileServiceImpl implements FileService {
       return "success";
     }
 
+    @Override
+    public String updateFileName(int fileID, String newName) {
+     fileRepository.updateFileName(fileID, newName);
+     return "success";
+    }
+
     
 }

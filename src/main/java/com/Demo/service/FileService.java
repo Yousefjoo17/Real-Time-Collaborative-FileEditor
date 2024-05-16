@@ -12,4 +12,5 @@ public interface FileService {
     String writeToFile(int fileID, String diff,int pos); //0 for addition , 1 for delete
     String deleteFromFile(int fileID, int length, int pos);
     String updateFileContent(int fileID, String newContent);
+    String updateFileName(int fileID, String newName);
 }

@@ -21,4 +21,5 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int FileID;
     String content;
+    String fileName;
 }
