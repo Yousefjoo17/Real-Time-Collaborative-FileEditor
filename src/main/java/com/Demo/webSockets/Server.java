@@ -5,7 +5,11 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Demo.functions.UpdateText;
 import com.Demo.model.ClientModel;
+import com.Demo.model.File;
+import com.Demo.model.UpdateFileModel;
+
 
 
 public class Server {
@@ -16,11 +20,17 @@ public class Server {
     static private String added;
     static private int pos;
     static public List<ClientModel> myClientSockets;
+    static File file;
+    static ServerMethods serverMethods;
+    static public UpdateFileModel updateFileModel;
     public Server(int port) {
        this.port=port;
        this.myClientSockets = new ArrayList<>();        
-    }
+       serverMethods=new ServerMethods();
+       file=serverMethods.getFile(port);
 
+    }
+    
 
 
     public void startServer() {
@@ -61,6 +71,7 @@ public class Server {
          System.out.println("server Received ID from client: " + userId);
          System.out.println("server Received diff from client: " + added);
          System.out.println("server Received pos from client: " + pos);
+         file.setContent(UpdateText.insertToString(file.getContent(), added, pos)); 
         /**********************************************************************************/
 
         ClientModel clientModel=new ClientModel(userId,clientSocket);
@@ -86,7 +97,9 @@ public class Server {
         System.out.println("Data has been sent to a client");
         }
         /*******************************************************************************************/
-            
+        serverMethods.updateContent(file.getFileID(), file.getContent());
+        System.out.println("Server has updated file in database");
+
 } catch (Exception e) {
         e.printStackTrace();
      }

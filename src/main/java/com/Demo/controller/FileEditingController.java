@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Demo.exception.CustomNotFoundException;
 import com.Demo.model.File;
+import com.Demo.model.UpdateFileModel;
 import com.Demo.model.User;
 import com.Demo.model.UserFilePermission;
 import com.Demo.service.FileService;
@@ -32,6 +33,18 @@ public class FileEditingController
     UserService userService;
     FileService fileService;
     UserFilePermissionService userFilePermissionService;
+    /*******************update *************/
+    @PostMapping("/updates/do")
+    public String doUpdate(@RequestBody UpdateFileModel updateFileModel){
+            Server.updateFileModel=updateFileModel;
+            System.out.println(updateFileModel.getAdded());
+            return "Updated Successfully";
+    }
+
+    @GetMapping("/updates/get")
+    public UpdateFileModel getUpdate(){
+            return Server.updateFileModel;
+    }
     
  /**************************************************Web sockets*****************************************/   
  @GetMapping("/start-server/port={port}")

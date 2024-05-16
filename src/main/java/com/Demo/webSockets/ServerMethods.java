@@ -10,16 +10,18 @@ import com.Demo.model.File;
 public class ServerMethods {
         private RestTemplate restTemplate;
 
-        ServerMethods(){
+        public ServerMethods(){
             this.restTemplate = new RestTemplate();
         }
-         public void getFile(int id){
+
+        public File getFile(int id){
         final String uri = "http://localhost:8080/Real-Time-Collaborative-Editing/files/id=" + id; // Change URL accordingly
         File file = restTemplate.getForObject(uri, File.class);
-       System.out.println("File content: " + file.getContent());
+        System.out.println("File content: " + file.getContent());
+        return file;
     }
 
-    public void updateContent(int fileID, String newContent) {
+        public void updateContent(int fileID, String newContent) {
         final String uri = "http://localhost:8080/Real-Time-Collaborative-Editing/files/id=" + fileID + "&newContent=" + newContent;
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
