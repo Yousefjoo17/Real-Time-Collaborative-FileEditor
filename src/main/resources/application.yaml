@@ -4,14 +4,13 @@ spring:
     username: joo
     password: 4OO@2xsr
 
-    # The SQL dialect makes Hibernate generate better SQL for the chosen database
-    jpa:
+  jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
-
-# JPA Settings
-  jpa:
     hibernate:
       ddl_auto: update  # or "validate" if you want to validate schema without modifying it
+      
+  server:
+    port: 1

@@ -53,7 +53,7 @@ public class Server {
     try {
 
          /******************** receive usename, added, and pos from client***********************/
-         /* 
+          
          ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
          userId = objectInputStream.readInt();
          added = (String) objectInputStream.readObject(); // Read string added
@@ -74,15 +74,14 @@ public class Server {
             myClientSockets.add(clientModel);
          }
 
-
         System.out.println("number of connected users is " + myClientSockets.size());
 
         /*******************************************Broadcasting**********************************/
         for(ClientModel client : myClientSockets){ 
         System.out.println("start sending data to the cleint "+ client);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.clientSocket.getOutputStream());
-        objectOutputStream.writeObject("Hello"); // added string
-        objectOutputStream.writeInt(7); // pos
+        objectOutputStream.writeObject(added); // added string
+        objectOutputStream.writeInt(pos); // pos
         objectOutputStream.flush();
         System.out.println("Data has been sent to a client");
         }

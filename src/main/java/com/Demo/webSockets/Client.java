@@ -24,8 +24,15 @@ public class Client {
             socket = new Socket(IP, port);
             System.out.println("Connected to server whose IP " + IP + " on port " + port);
             
+            
+            /*
+            System.out.println("data from flutter");
+            System.out.println(userID);
+            System.out.println(added);
+            System.out.println(pos);
+
             /******************send added and pos to the server******************/
-            /* 
+             
             ObjectOutputStream  objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeInt(userID); // Send userID
             objectOutputStream.writeObject(added); // Send string added
@@ -36,10 +43,10 @@ public class Client {
            
             /************** recieve data from server*****************/
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-            String message = (String) objectInputStream.readObject(); // Read string added
-            int number = objectInputStream.readInt(); // Read position
-            System.out.println("Client Received string: " + message);
-            System.out.println("client Received number: " + number);
+            String a = (String) objectInputStream.readObject(); // Read string added
+            int p = objectInputStream.readInt(); // Read position
+            System.out.println("Client Received string: " + a);
+            System.out.println("client Received number: " + p);
             
             //notify here Filfel 
             
